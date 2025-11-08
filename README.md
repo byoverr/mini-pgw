@@ -255,7 +255,7 @@ cat cdr.log
 
 ## UML Диаграмма
 
-![alt tag](https://github.com/byoverr/mini_pgw/blob/main/img/uml.png "UML")
+![alt tag](https://github.com/byoverr/mini-pgw/blob/main/img/uml.png "UML")
 
 **Структура классов:**
 - `Server` - основной класс сервера (UDP + HTTP)
