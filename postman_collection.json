@@ -1,0 +1,159 @@
+{
+	"info": {
+		"_postman_id": "mini-pgw-api",
+		"name": "Mini PGW API",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/health",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"health"
+					]
+				},
+				"description": "Проверка работоспособности сервера"
+			},
+			"response": []
+		},
+		{
+			"name": "Check Subscriber - Active",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/check_subscriber?imsi=123456789012345",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"check_subscriber"
+					],
+					"query": [
+						{
+							"key": "imsi",
+							"value": "123456789012345",
+							"description": "IMSI абонента"
+						}
+					]
+				},
+				"description": "Проверка статуса абонента. Возвращает 'active' если сессия активна, 'not active' если нет."
+			},
+			"response": []
+		},
+		{
+			"name": "Check Subscriber - Not Active",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/check_subscriber?imsi=999999999999999",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"check_subscriber"
+					],
+					"query": [
+						{
+							"key": "imsi",
+							"value": "999999999999999",
+							"description": "IMSI абонента (несуществующий)"
+						}
+					]
+				},
+				"description": "Проверка несуществующего абонента. Должен вернуть 'not active'."
+			},
+			"response": []
+		},
+		{
+			"name": "Check Subscriber - Missing Param",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/check_subscriber",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"check_subscriber"
+					]
+				},
+				"description": "Проверка без параметра imsi. Должен вернуть 400 Bad Request."
+			},
+			"response": []
+		},
+		{
+			"name": "Graceful Shutdown",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stop?rate=5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stop"
+					],
+					"query": [
+						{
+							"key": "rate",
+							"value": "5",
+							"description": "Скорость удаления сессий в секунду (опционально)"
+						}
+					]
+				},
+				"description": "Graceful shutdown сервера. Завершает работу с постепенным удалением сессий."
+			},
+			"response": []
+		},
+		{
+			"name": "Graceful Shutdown - Default Rate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/stop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"stop"
+					]
+				},
+				"description": "Graceful shutdown с дефолтной скоростью из конфига."
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
+
